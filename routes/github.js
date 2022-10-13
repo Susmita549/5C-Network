@@ -1,17 +1,8 @@
 const express = require("express");
-const githubModel = require("../model/github");
 const githubtRouter = express.Router();
+const { getAllUsers } = require("../controllers/github.controller");
 
 
-
-githubtRouter.get("/username/:name", async (req, res) => {
-  try {
-    const githubuser = await githubModel.find({ name: req.params.name });
-
-    return res.status(200).send(githubuser);
-  } catch (err) {
-    return res.status(500).send({ message: err.message });
-  }
-});
+githubtRouter.get("/username/:name", getAllUsers);
 
 module.exports = githubtRouter;
