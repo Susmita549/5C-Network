@@ -1,12 +1,18 @@
 const express = require('express')
 const app = express();
+const  connection  = require("./config/db");
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use("/", (req, res) => {
     res.send('hello')
 })
-app.get("https://api.github.com/users/Susmita549", (req, res) => {
-    console.log(res)
-    res.send(res)
-});
-app.listen(8080, () => {
-    console.log('started server...');
+
+app.listen(8080, async() => {
+    try {
+      await connection;
+      console.log("connection establish successfully");
+    } catch {
+      console.log("connection failed");
+    }
+    console.log("Server strated successfully...");
 })
